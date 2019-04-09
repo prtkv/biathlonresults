@@ -5,7 +5,10 @@ ROOT_API = 'http://biathlonresults.com/modules/sportapi/api/'
 
 
 def _request(method, params):
-    return requests.get(ROOT_API + method, params=params).json()
+    try:
+        return requests.get(ROOT_API + method, params=params).json()
+    except requests.exceptions.RequestException as e:
+        print("Something went wrong", e)
 
 
 def cups(season_id):
