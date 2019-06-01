@@ -11,7 +11,6 @@ setup(name='biathlonresults',
       author_email='ip.tspl@gmail.com',
       license='MIT',
       packages=['biathlonresults'],
-      install_requires=[
-                'requests',
-            ],
+      install_requires=['requests'],
+      tests_require=['pytest']
       zip_safe=False)
