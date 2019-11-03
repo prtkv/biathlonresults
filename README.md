@@ -1,6 +1,9 @@
-# biathlonresults.com API for Python
+biathlonresults.com API for Python
+==================================
 
-### Find athlete:
+Find athlete:
+-------------
+
 ```python
 import biathlonresults
 athletes = biathlonresults.athletes('boe')
@@ -14,7 +17,9 @@ for i in athletes['Athletes']:
 # ...
 ```
 
-### Get last races of athlete:
+Get last races of athlete:
+--------------------------
+
 ```python
 import biathlonresults
 res = biathlonresults.all_results('BTNOR11605199301')
@@ -25,7 +30,10 @@ for i in res['Results'][:3]:
 # PU 18/19 Oslo 1.
 # SP 18/19 Oslo 1.
 ```
-### Get WC 2019/2020 stages:
+
+Get WC 2019/2020 stages:
+------------------------
+
 ```python
 import biathlonresults
 events = biathlonresults.events(1920, 1)
