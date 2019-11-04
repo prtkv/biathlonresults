@@ -1,10 +1,11 @@
 from setuptools import setup
+from biathlonresults import __version__
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setup(name='biathlonresults',
-      version='0.1b',
+      version=__version__,
       description='biathlonresults.com API for Python',
       long_description=long_description,
       long_description_content_type='text/markdown',

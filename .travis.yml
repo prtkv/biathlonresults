@@ -10,9 +10,11 @@ script:
 - python -m pytest -v
 deploy:
   provider: pypi
-  user: __token__
+  user: ip
   password:
     secure: RxZcbu/BErECTzP+9MfO75+ee2WXtaFPZ+WjPZOo23mAkVTQe1c7qqrxkK++k8rmSxbp//qIgWUrS/RYhrJ5nDncw40Uu26eJ0lFIKCledqrOKM4znXUqtqfpw+8vCMSps81gD2hRrzRrr6ShYZK5368PF/TMmZ1j5DtzqBg2I9YgxcYL0A/3c+vBMKY7kLgXxnLIGI3rp3tM0D8eSf6JkAs5yAweXv7xBuYbNsfaxZKq4Rl/+uV9CLC00AN7wpJuwjUv0wxDn8i4F+EcCxYrBflyJbNTmvgpPXXjqnzigxujOL8h38h7yMfkysKs2sIgs5HF4ZgJRTAh7/RMiVjgBKFJWURTrlaXkBvfYaxGolqsRxFww0YYXLTAZEKQdYR3fA1LAlGfXjxAPZRTDbD3vsBogwzdXmjEcu5Zuju2bM/FdPmgPJxqYl6oP0NAUA4deDvbimSALJE5zyJQ5SmpRdDK3I9q1mZjej2AHM2iiM2V4iNqEXI2VBdlL4eIHbwgI6GzXqnsiTg06dlrz91KoSrHgTNi2KIrDArZIB+cJyAv98NlCKNpeTuJaRhAIhwFA08zmgW+uIuyQj2dtvJqajxrOcIztR4mJUdFL2wbCXDYa7Ne3dtHBM8OO9Zl8DzGTpqnmwnWECj2q6ldgClPGgs1AEeUiBsx9FA8LplgCg=
+  distributions: sdist bdist_wheel
+  skip_existing: true
   on:
     tags: true
     all_branches: true
