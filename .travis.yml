@@ -10,12 +10,11 @@ script:
 - python -m pytest -v
 deploy:
   provider: pypi
-  user: ip
-  password:
-    secure: TeUDsGbWS6J+mtRbN9z2qwD3LncZBKHAmzjGPna67v1Y6mafmLsqkvx1lk/PQLXGF3fLvlp/zES5utW4qK5p0g5jGc/ihPZ4Q0K0gYpeTRCxta6LHFaKTQjyspIma43d4ao55Q+A4l64yp5au7ptShBRqqc4GhsdpMI1Zs2M+GWZbkVcbRD+/HKPWOjwaq7rN9MhR2gtbcUAx2FVU+PYMv3GeqliqE7Z/b03/4puo8SJ3+RrTuZ5DYFh6GNr4g5/TukBjK0SGQhqwomca/FE7I48INFw/iisyBMks32iIOZBF+DkmCYsqTMqh0719FQxmwJboOIgmdLqHiiz0iM2M5SmqWMrmFJI6PfVJGP5AZKNti+kp9Tw5wIDucnE1d6fUVm+31q3DpC47KVLJj/IKJj/Yt7c964RhroHw1VLEIr6unHHJFJk6h5iXkG/w1T+PUrmjLDwfRlT4LgG3LZXD23EDN545pAMxtD2Ow+2+gqKdWaH6ib4TpxDxbFiylTXVs+T2MFRdDMJunbe09kwn3Heom6jwG6K36NjFWZftiFfksuzr9ARhahoicLWDe+jevVt1a69T6ZdJfm8gj/c0YvW4aX16X3in9qLGNOD56cEalzDOxHjFX6IctM48gL4nrZZ1j55y398+szxH8nX6NmdrNIBdo+QuKPAga5Rsvk=
+  user: __token__
   distributions: sdist bdist_wheel
-  skip_existing: true
+  password:
+    secure: YcJAx7nC7DFtkWEdtUNQss+rsg6hgdhqfSJYFBvfFRoxoeNOv/HmIk9oY2MkTIhw9qexLe+cltk5RmUdtJQfNoxOE/LrILEMf3Poyefc8b9nhVCpaMN4fgYGgf4XpTFXacqzOGbCXAx3edEbmMtENmI2c0zgX/VWs+WC3AhF3VDoQaTTpsFIlmuTpniFPBhikVZcVSxND5RASijOTSsevgFs95KLaqXL1+YsaZYvfXVUUDa1BjyaWsnIoAlWv/MH/g1bHt3wcMU/G+gRMOsiyso49LiZSoW9HOXQ6NbXDPc1wYclBn0AfaL8XT1iwP0/Z0Fxlqliby1amq43O+13riwVCi5JRJ21uF3YlsVA+QcC3KZTpjxka0V6B38zfSYx4FYOUlhCWlyWJUIjA/Ro+kJmQ9Fz7ENYXMPhIeMyARdep4UsWWShwnSzzXaPt77tuGsyILoggkfF4GJ6ks2Pg9MFM/kV39wUonlTISerlNuKJVkOOMkYKoy8Ul1S36FY2+q8nYsju7Q9qxMZPQCL2T5MslkAGfmO6REOgJu4C1OHHn1T+LvUwtn+e+MLbwQW1Z4WjyO26nvnUBLWslGjWmt1pamSGyZslvwL0rnyuwL/DKw2aiEoV4tDeOWe+KX1geUoH93LC1ExSho7/dL8gv/iwtuFhFd/OlNulEf745s=
   on:
     tags: true
     all_branches: true
-    python: 3.7
+    python: 3.6
