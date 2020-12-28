@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
 import random
+
 import biathlonresults as api
 
 
@@ -52,7 +52,7 @@ def test_competitions():
 	res = api.competitions('BT1819SWRLCP01')
 	assert isinstance(res, list)
 	assert len(res) == 8
-	assert res[-1]['ShortDescription'] == 'Women 10 km Pursuit'
+	assert res[-1]['ShortDescription'] == 'Women 10km Pursuit'
 
 
 def test_results():

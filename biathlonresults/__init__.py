@@ -2,11 +2,8 @@
 """
 biathlonresults.com API for Python
 """
-from .api import (
-    cups, cup_results, athletes,
-    cisbios, all_results, events,
-    competitions, results, stats
-)
+from .api import (LevelType, all_results, athletes, cisbios, competitions,
+                  cup_results, cups, events, results, stats)
 
 __author__ = 'Ilya Porotikov'
 __email__ = 'ip.tspl@gmail.com'

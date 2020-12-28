@@ -1,4 +1,5 @@
 from setuptools import setup
+
 from biathlonresults import __version__
 
 with open("README.md", "r") as fh:

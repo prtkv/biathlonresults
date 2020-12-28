@@ -1,7 +1,15 @@
-# -*- coding: utf-8 -*-
+from enum import Enum
+
 import requests
 
 ROOT_API = 'http://biathlonresults.com/modules/sportapi/api/'
+
+
+class LevelType(Enum):
+    ALL = 0
+    BMW_IBU_WC = 1
+    IBU_CUP = 2
+    JR_CUP = 3
 
 
 def _request(method, params):
@@ -64,7 +72,7 @@ def all_results(ibu_id):
     return _request('AllResults', {"IBUId": ibu_id})
 
 
-def events(season_id, level=0):
+def events(season_id, level=LevelType.ALL):
     """
     Events of cup (schedule)
     :param season_id: season identifier (1819 for season 2018/2019, get others in a similar way)
@@ -72,6 +80,8 @@ def events(season_id, level=0):
     :return: list of events
     :rtype: list
     """
+    if isinstance(level, LevelType):
+        level = level.value
     return _request("Events", {"SeasonId": season_id, "Level": level})
 
 
