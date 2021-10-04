@@ -1,6 +1,8 @@
 biathlonresults.com API for Python
 ==================================
 
+![example workflow](https://github.com/prtkv/biathlonresults/actions/workflows/main.yml/badge.svg)
+
 Find athlete:
 -------------
 
