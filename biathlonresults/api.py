@@ -1,7 +1,8 @@
-# -*- coding: utf-8 -*-
 import requests
 
-ROOT_API = 'http://biathlonresults.com/modules/sportapi/api/'
+from .consts import LevelType
+
+ROOT_API = "http://biathlonresults.com/modules/sportapi/api/"
 
 
 def _request(method, params):
@@ -18,7 +19,7 @@ def cups(season_id):
     :return: list of cups
     :rtype: list
     """
-    return _request("Cups", {'SeasonId': season_id})
+    return _request("Cups", {"SeasonId": season_id})
 
 
 def cup_results(cup_id):
@@ -30,10 +31,10 @@ def cup_results(cup_id):
     :return: selected cup results
     :rtype: dict
     """
-    return _request("CupResults", {'CupId': cup_id})
+    return _request("CupResults", {"CupId": cup_id})
 
 
-def athletes(family_name='', given_name=''):
+def athletes(family_name="", given_name=""):
     """
     Search athlete
     :param family_name:
@@ -61,10 +62,10 @@ def all_results(ibu_id):
     :return: races results
     :rtype: dict
     """
-    return _request('AllResults', {"IBUId": ibu_id})
+    return _request("AllResults", {"IBUId": ibu_id})
 
 
-def events(season_id, level=0):
+def events(season_id, level=LevelType.ALL):
     """
     Events of cup (schedule)
     :param season_id: season identifier (1819 for season 2018/2019, get others in a similar way)
@@ -72,6 +73,8 @@ def events(season_id, level=0):
     :return: list of events
     :rtype: list
     """
+    if isinstance(level, LevelType):
+        level = level.value
     return _request("Events", {"SeasonId": season_id, "Level": level})
 
 
@@ -82,7 +85,7 @@ def competitions(event_id):
     :return: list of races
     :rtype: list
     """
-    return _request('Competitions', {'EventId': event_id})
+    return _request("Competitions", {"EventId": event_id})
 
 
 def results(race_id):
@@ -92,10 +95,19 @@ def results(race_id):
     :return: list of races
     :rtype: dict
     """
-    return _request('Results', {'RaceId': race_id})
+    return _request("Results", {"RaceId": race_id})
 
 
-def stats(statistic_id, stat_id, by_what, gender_id, season_id='', organizer_id='', ibu_id='', nat=''):
+def stats(
+    statistic_id,
+    stat_id,
+    by_what,
+    gender_id,
+    season_id="",
+    organizer_id="",
+    ibu_id="",
+    nat="",
+):
     """
     Statistics
     Not sure how to use it right, here's default query parameters:
@@ -111,13 +123,16 @@ def stats(statistic_id, stat_id, by_what, gender_id, season_id='', organizer_id=
     :return: statistics
     :rtype: dict
     """
-    return _request('Stats', {
-        'StatisticId': statistic_id,
-        'StatId': stat_id,
-        'byWhat': by_what,
-        'SeasonId': season_id,
-        'OrganizerId': organizer_id,
-        'GenderId': gender_id,
-        'IBUId': ibu_id,
-        'Nat': nat,
-    })
+    return _request(
+        "Stats",
+        {
+            "StatisticId": statistic_id,
+            "StatId": stat_id,
+            "byWhat": by_what,
+            "SeasonId": season_id,
+            "OrganizerId": organizer_id,
+            "GenderId": gender_id,
+            "IBUId": ibu_id,
+            "Nat": nat,
+        },
+    )
