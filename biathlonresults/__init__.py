@@ -1,15 +1,20 @@
 """
 Python API wrapper for biathlonresults.com
 """
+
+from . import consts
 from .api import (
-    cups,
-    cup_results,
+    all_results,
+    analytic_results,
     athletes,
     cisbios,
-    all_results,
-    events,
     competitions,
+    cup_results,
+    cups,
+    events,
+    organizers,
     results,
+    seasons,
     stats,
 )
 
@@ -23,9 +28,13 @@ __all__ = [
     "competitions",
     "results",
     "stats",
+    "analytic_results",
+    "seasons",
+    "organizers",
+    "consts",
 ]
 
 __author__ = "Ilya Porotikov"
 __email__ = "ip.tspl@gmail.com"
 __licence__ = "MIT"
-__version__ = "0.1b1"
+__version__ = "0.1"

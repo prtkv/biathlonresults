@@ -1,6 +1,29 @@
 import biathlonresults as api
 
 
+def test_seasons():
+    res = api.seasons()
+    assert res[-1] == {
+        "SeasonId": "5758",
+        "Description": "1957/1958",
+        "SortOrder": 1,
+        "IsCurrent": False,
+        "IsCurrentResults": False,
+        "IsCurrentScheduled": False,
+    }
+
+
+def test_organizers():
+    res = api.organizers()
+    assert isinstance(res, list)
+
+
+def test_analytic_results():
+    res = api.analytic_results("BT2425SWRLCP01MXSR", api.consts.AnalysisType.TOTAL_COURSE_TIME)
+    assert isinstance(res, dict)
+    assert res["Results"][0]["Name"] == "NORWAY"
+
+
 def test_cups():
     res = api.cups(1819)
     assert isinstance(res, list)
@@ -38,7 +61,7 @@ def test_all_results():
 
 
 def test_events():
-    res = api.events(1819, 1)
+    res = api.events(1819, api.consts.LevelType.BMW_IBU_WC)
     assert isinstance(res, list)
     assert len(res) == 10
     assert res[0]["Level"] == 1
