@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "biathlonresults"
+version = "0.1"
+description = "Python API wrapper for biathlonresults.com"
+readme = "README.md"
+license = {file = "LICENSE"}
+authors = [
+  {name = "Ilya Porotikov", email = "ip.tspl@gmail.com"},
+]
+keywords = ["biathlon", "api", "sport", "ibu"]
+dependencies = [
+    "requests>=2.22.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/prtkv/biathlonresults"
