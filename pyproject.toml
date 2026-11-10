@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "biathlonresults"
-version = "0.1"
+version = "0.1.1"
 description = "Python API wrapper for biathlonresults.com"
 readme = "README.md"
 license = {file = "LICENSE"}

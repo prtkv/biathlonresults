@@ -2,11 +2,22 @@
 
 ![example workflow](https://github.com/prtkv/biathlonresults/actions/workflows/python-package.yml/badge.svg)
 
+> [!WARNING]
+> biathlonresults.com now requires an API key on data requests. Versions before 0.1.1 no longer work: every call except `seasons()` and `organizers()` fails with `JSONDecodeError: Expecting value: line 1 column 1 (char 0)`. Update the package:
+>
+> ```bash
+> pip install -U biathlonresults
+> ```
+
 ## Installation
 
 ```bash
 pip install biathlonresults
 ```
+
+## API key
+
+biathlonresults.com requires an `apikey` header on data requests. The library reads the public key the site's own frontend uses from biathlonresults.com on the first request, and again whenever the API rejects it. To start with a key of your own, set the `BIATHLONRESULTS_API_KEY` environment variable.
 
 ## Examples
 
