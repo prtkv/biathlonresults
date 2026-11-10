@@ -11,6 +11,20 @@ SITE_URL = "https://biathlonresults.com/"
 ROOT_API = SITE_URL + "modules/sportapi/api/"
 TIMEOUT = 30
 
+# Sent with every request, as by the biathlonresults.com frontend in Chrome
+HEADERS = {
+    "User-Agent": (
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
+        "(KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36"
+    ),
+    "sec-ch-ua": (
+        '"Not-A.Brand";v="99", "Google Chrome";v="157", "Chromium";v="157"'
+    ),
+    "sec-ch-ua-mobile": "?0",
+    "sec-ch-ua-platform": '"macOS"',
+    "Referer": SITE_URL,
+}
+
 # The sport API answers data requests with an empty 401 unless they carry an
 # "apikey" header. The key is public: the biathlonresults.com frontend ships it
 # in its app bundle (window.ApiKey) and sends it with every request. It is read
@@ -26,7 +40,7 @@ ApiResponse = Union[dict[str, Any], list]
 
 
 def _get(method: str, params: Optional[dict[str, str]]) -> requests.Response:
-    headers = {"apikey": _api_key} if _api_key else {}
+    headers = {**HEADERS, "apikey": _api_key} if _api_key else HEADERS
     return requests.get(ROOT_API + method, params=params, headers=headers)
 
 
@@ -52,13 +66,13 @@ def fetch_api_key() -> Optional[str]:
     assigned to window.ApiKey in one of the scripts of the start page.
     None if the site no longer has it there.
     """
-    page = requests.get(SITE_URL, timeout=TIMEOUT)
+    page = requests.get(SITE_URL, headers=HEADERS, timeout=TIMEOUT)
     page.raise_for_status()
     scripts = [urljoin(SITE_URL, src) for src in _SCRIPT_SRC.findall(page.text)]
     # the key lives in the app bundles, check them before the vendor ones
     scripts.sort(key=lambda url: "app" not in url.rsplit("/", 1)[-1])
     for url in scripts:
-        script = requests.get(url, timeout=TIMEOUT)
+        script = requests.get(url, headers=HEADERS, timeout=TIMEOUT)
         if script.ok:
             match = _API_KEY.search(script.text)
             if match:
