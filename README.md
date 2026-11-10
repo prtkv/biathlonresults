@@ -2,6 +2,13 @@
 
 ![example workflow](https://github.com/prtkv/biathlonresults/actions/workflows/python-package.yml/badge.svg)
 
+> [!WARNING]
+> biathlonresults.com now requires an API key on data requests. Versions before 0.1.1 no longer work: every call except `seasons()` and `organizers()` fails with `JSONDecodeError: Expecting value: line 1 column 1 (char 0)`. Update the package:
+>
+> ```bash
+> pip install -U biathlonresults
+> ```
+
 ## Installation
 
 ```bash
