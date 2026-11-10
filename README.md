@@ -8,6 +8,10 @@
 pip install biathlonresults
 ```
 
+## API key
+
+biathlonresults.com requires an `apikey` header on data requests. The library reads the public key the site's own frontend uses from biathlonresults.com on the first request, and again whenever the API rejects it. To start with a key of your own, set the `BIATHLONRESULTS_API_KEY` environment variable.
+
 ## Examples
 
 ### Get WC 2024/2025 stages and races:

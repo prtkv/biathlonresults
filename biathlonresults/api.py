@@ -1,20 +1,69 @@
+import os
+import re
 from typing import Any, Optional, Union
+from urllib.parse import urljoin
 
 import requests
 
 from .consts import AnalysisType, LevelType
 
-ROOT_API = "http://biathlonresults.com/modules/sportapi/api/"
+SITE_URL = "https://biathlonresults.com/"
+ROOT_API = SITE_URL + "modules/sportapi/api/"
+TIMEOUT = 30
+
+# The sport API answers data requests with an empty 401 unless they carry an
+# "apikey" header. The key is public: the biathlonresults.com frontend ships it
+# in its app bundle (window.ApiKey) and sends it with every request. It is read
+# from there on the first request and again whenever the API rejects it;
+# $BIATHLONRESULTS_API_KEY, if set, is used until then.
+API_KEY_ENV = "BIATHLONRESULTS_API_KEY"
+_api_key = os.environ.get(API_KEY_ENV)
+
+_SCRIPT_SRC = re.compile(r"""<script[^>]*\ssrc=["']?([^"'\s>]+\.js)""", re.I)
+_API_KEY = re.compile(r"""ApiKey\s*=\s*["']([0-9a-fA-F-]{36})["']""")
 
 ApiResponse = Union[dict[str, Any], list]
 
 
+def _get(method: str, params: Optional[dict[str, str]]) -> requests.Response:
+    headers = {"apikey": _api_key} if _api_key else {}
+    return requests.get(ROOT_API + method, params=params, headers=headers)
+
+
 def _request(method: str, params: Optional[dict[str, str]] = None) -> ApiResponse:
+    global _api_key
     try:
-        return requests.get(ROOT_API + method, params=params).json()
+        if _api_key is None:
+            _api_key = fetch_api_key()
+        response = _get(method, params)
+        if response.status_code == 401:  # the site changed its key
+            _api_key = fetch_api_key()
+            response = _get(method, params)
+        response.raise_for_status()
+        return response.json()
     except requests.exceptions.RequestException as e:
         print("Something went wrong", e)
         raise
+
+
+def fetch_api_key() -> Optional[str]:
+    """
+    The API key the biathlonresults.com frontend currently sends: it is
+    assigned to window.ApiKey in one of the scripts of the start page.
+    None if the site no longer has it there.
+    """
+    page = requests.get(SITE_URL, timeout=TIMEOUT)
+    page.raise_for_status()
+    scripts = [urljoin(SITE_URL, src) for src in _SCRIPT_SRC.findall(page.text)]
+    # the key lives in the app bundles, check them before the vendor ones
+    scripts.sort(key=lambda url: "app" not in url.rsplit("/", 1)[-1])
+    for url in scripts:
+        script = requests.get(url, timeout=TIMEOUT)
+        if script.ok:
+            match = _API_KEY.search(script.text)
+            if match:
+                return match.group(1)
+    return None
 
 
 def organizers() -> ApiResponse:

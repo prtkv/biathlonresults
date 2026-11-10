@@ -1,4 +1,20 @@
+import re
+
 import biathlonresults as api
+import biathlonresults.api
+
+
+def test_fetch_api_key():
+    key = biathlonresults.api.fetch_api_key()
+    assert re.fullmatch(r"[0-9a-fA-F-]{36}", key)
+
+
+def test_rejected_api_key_is_refreshed(monkeypatch):
+    stale = "00000000-0000-0000-0000-000000000000"
+    monkeypatch.setattr(biathlonresults.api, "_api_key", stale)
+    res = api.events(1819, api.consts.LevelType.BMW_IBU_WC)
+    assert len(res) == 10
+    assert biathlonresults.api._api_key != stale
 
 
 def test_seasons():
@@ -73,7 +89,7 @@ def test_competitions():
     res = api.competitions("BT1819SWRLCP01")
     assert isinstance(res, list)
     assert len(res) == 8
-    assert res[-1]["ShortDescription"] == "Women 10km Pursuit"
+    assert res[-1]["ShortDescription"] == "Women's 10km Pursuit"
 
 
 def test_results():
